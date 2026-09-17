@@ -1,8 +1,9 @@
- 
-const Home = () => {
-  return (
-    <div>Home</div>
-  )
-}
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
-export default Home
+const Home = () => {
+	const { user, isLoading } = useAuth();
+	if (user && !isLoading)  return <Navigate to="/profile" replace />;
+};
+
+export default Home;
