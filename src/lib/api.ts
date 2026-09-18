@@ -1,5 +1,5 @@
 import type { UserProfile } from "../types";
-const BASE_URL = import.meta.env.VITE_API_URL || "https://localhost:3001";
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 async function post(path: string, body: object) {
 	const res = await fetch(`${BASE_URL}/api${path}`, {
 		method: "POST",
@@ -18,5 +18,10 @@ export const api = {
 	saveProfile: (
 		userId: string,
 		profile: Omit<UserProfile, "userId" | "updatedAt">,
-	) => post("/profile", { userId, ...profile }),
+	) => {
+		return post("/profile", { userId, ...profile });
+	},
+	generatePlan: (userId: string) => {
+		return post("/plan/generate", { userId });
+	},
 };
